@@ -1,45 +1,47 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-export default function App() {
-  const [username, setUsername] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+function App() {
+  const [username, setUsername] = useState('');
+  const [generated, setGenerated] = useState(false);
 
   const handleGenerate = () => {
-    if (username.trim() !== "") setSubmitted(true);
+    if (username.trim() !== '') {
+      setGenerated(true);
+    }
   };
 
-  const avatarUrl = `https://avatars.dicebear.com/api/identicon/${username}.svg`;
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-zinc-900 to-purple-900 flex flex-col items-center justify-center p-6 text-white">
-      <h1 className="text-3xl md:text-5xl font-bold mb-8 text-center">🔮 Anoma Mage Avatar</h1>
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-900 flex flex-col items-center justify-center text-white px-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-6">🔮 Anoma Mage Avatar</h1>
 
       <input
         type="text"
-        placeholder="Enter your X username"
+        placeholder="Enter X username (e.g. soltrick)"
+        className="px-4 py-2 rounded-md text-black w-full max-w-md mb-4"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        className="bg-zinc-800 px-4 py-2 rounded-lg border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-purple-500 text-white mb-4 w-full max-w-sm"
       />
 
       <button
+        className="bg-purple-600 hover:bg-purple-700 transition px-6 py-2 rounded-md mb-10"
         onClick={handleGenerate}
-        className="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-lg text-white font-semibold transition"
       >
         Generate Mage Card
       </button>
 
-      {submitted && (
-        <div className="mt-10 p-6 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 shadow-2xl max-w-sm w-full text-center">
+      {generated && (
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 text-center w-full max-w-sm shadow-xl">
           <img
-            src={avatarUrl}
-            alt="Mage Avatar"
-            className="w-28 h-28 mx-auto rounded-full border-2 border-purple-500 mb-4"
+            src={`https://unavatar.io/twitter/${username}`}
+            alt="X Profile"
+            className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-purple-600"
           />
-          <p className="text-xl font-bold">@{username}</p>
+          <h2 className="text-xl font-semibold">@{username}</h2>
           <p className="italic text-purple-300 mt-1">"Fitcoin Alchemist"</p>
         </div>
       )}
     </div>
   );
 }
+
+export default App;
